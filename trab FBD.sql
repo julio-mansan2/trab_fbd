@@ -28,28 +28,6 @@ drop table airbnb_desnormalizado;
 
 -- Tabelas Normalizadas (talvez)
 
-CREATE TABLE airbnb_host (
-    host_id BIGINT PRIMARY KEY,
-    host_profile_id BIGINT,
-    host_name VARCHAR(255)
-);
-
-CREATE TABLE neighbourhood_group (
-    neighbourhood_group_name VARCHAR(255) PRIMARY KEY
-);
-
-CREATE TABLE neighbourhood (
-    neighbourhood_name VARCHAR(255) PRIMARY KEY,
-    neighbourhood_group VARCHAR(255),
-
-    FOREIGN KEY(neighbourhood_group)
-        REFERENCES neighbourhood_group(neighbourhood_group_name)
-);
-
-CREATE TABLE room_type (
-    room_type VARCHAR(100) PRIMARY KEY
-);
-
 CREATE TABLE listing (
     listing_id BIGINT PRIMARY KEY,
     listing_name TEXT,
@@ -58,33 +36,51 @@ CREATE TABLE listing (
     minimum_nights INT,
     availability_365 INT,
     license TEXT,
+    room_type VARCHAR(100),
 
     latitude DOUBLE,
     longitude DOUBLE,
 
-    neighbourhood_name VARCHAR(255),
-    room_type VARCHAR(100),
+    neighbourhood_id BIGINT,
     host_id BIGINT,
 
-    FOREIGN KEY(neighbourhood_name)
-        REFERENCES neighbourhood(neighbourhood_name),
-
-    FOREIGN KEY(room_type)
-        REFERENCES room_type(room_type),
+    FOREIGN KEY(neighbourhood_id)
+        REFERENCES neighbourhood(neighbourhood_id),
 
     FOREIGN KEY(host_id)
         REFERENCES airbnb_host(host_id)
 );
 
-create table review_summary (
-	listing_id bigint primary key,
-    number_of_reviews int,
-    last_review date,
-    reviews_per_month double,
-    number_of_reviews_ltm int,
+CREATE TABLE airbnb_host (
+    host_id BIGINT PRIMARY KEY,
+    host_profile_id BIGINT,
+    host_name VARCHAR(255),
+    calculated_host_listings_count INT
+);
+
+CREATE TABLE neighbourhood_group (
+    neighbourhood_group_id BIGINT PRIMARY KEY,
+    neighbourhood_group_name VARCHAR(255)
+);
+
+CREATE TABLE neighbourhood (
+    neighbourhood_id BIGINT PRIMARY KEY,
+    neighbourhood_name VARCHAR(255),
+    neighbourhood_group_id BIGINT,
+
+    FOREIGN KEY(neighbourhood_group_id)
+        REFERENCES neighbourhood_group(neighbourhood_group_id)
+);
+
+CREATE TABLE review_summary (
+	  listing_id BIGINT PRIMARY KEY,
+    number_of_reviews INT,
+    last_review DATE,
+    reviews_per_month DOUBLE,
+    number_of_reviews_ltm INT,
     
-    foreign key(listing_id)
-		references listing(listing_id)
+    FOREIGN KEY(listing_id)
+    		REFERENCES listing(listing_id)
 );
 
 use airbnb_db
