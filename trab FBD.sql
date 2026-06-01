@@ -35,19 +35,22 @@ CREATE TABLE airbnb_host (
 );
 
 CREATE TABLE neighbourhood_group (
-    neighbourhood_group_name VARCHAR(255) PRIMARY KEY
+	neighbourhood_group_id INT PRIMARY KEY,
+    neighbourhood_group_name VARCHAR(255)
 );
 
 CREATE TABLE neighbourhood (
-    neighbourhood_name VARCHAR(255) PRIMARY KEY,
-    neighbourhood_group VARCHAR(255),
+	neighbourhood_id INT PRIMARY KEY,
+    neighbourhood_name VARCHAR(255),
+    neighbourhood_group_id INT,
 
-    FOREIGN KEY(neighbourhood_group)
-        REFERENCES neighbourhood_group(neighbourhood_group_name)
+    FOREIGN KEY(neighbourhood_group_id)
+        REFERENCES neighbourhood_group(neighbourhood_group_id)
 );
 
 CREATE TABLE room_type (
-    room_type VARCHAR(100) PRIMARY KEY
+	room_type_id INT PRIMARY KEY,
+    room_type VARCHAR(100)
 );
 
 CREATE TABLE listing (
@@ -62,15 +65,15 @@ CREATE TABLE listing (
     latitude DOUBLE,
     longitude DOUBLE,
 
-    neighbourhood_name VARCHAR(255),
-    room_type VARCHAR(100),
+    neighbourhood_id INT,
+    room_type_id INT,
     host_id BIGINT,
 
-    FOREIGN KEY(neighbourhood_name)
-        REFERENCES neighbourhood(neighbourhood_name),
+    FOREIGN KEY(neighbourhood_id)
+        REFERENCES neighbourhood(neighbourhood_id),
 
-    FOREIGN KEY(room_type)
-        REFERENCES room_type(room_type),
+    FOREIGN KEY(room_type_id)
+        REFERENCES room_type(room_type_id),
 
     FOREIGN KEY(host_id)
         REFERENCES airbnb_host(host_id)
