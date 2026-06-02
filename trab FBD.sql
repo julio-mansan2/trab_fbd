@@ -3,26 +3,27 @@ create database airbnb_db;
 -- Tabela Desnormalizada
 
 create table airbnb_desnormalizado (
-	id bigint primary key,
-	name text,
-    host_id bigint,
-    host_profile_id bigint,
+	id varchar(255) primary key,
+	name varchar(255),
+    host_id varchar(255),
+    host_profile_id varchar(255),
     host_name varchar(255),
     neighbourhood_group varchar(255),
     neighbourhood varchar(255),
-    latitude double,
-    longitude double,
+    latitude varchar(255),
+    longitude varchar(255),
     room_type varchar(100),
-    price double,
-    minimum_nights int,
-    number_of_reviews int,
-    last_review date,
-    reviews_per_month double,
-    calculated_host_listings_count int,
-    availability_365 int,
-    number_of_reviews_ltm int,
-    license text
+    price varchar(255),
+    minimum_nights varchar(255),
+    number_of_reviews varchar(255),
+    last_review varchar(255),
+    reviews_per_month varchar(255),
+    calculated_host_listings_count varchar(255),
+    availability_365 varchar(255),
+    number_of_reviews_ltm varchar(255),
+    license varchar(255)
 );
+
 
 drop table airbnb_desnormalizado;
 
