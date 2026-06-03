@@ -1,6 +1,17 @@
 create database airbnb_db;
 
 -- Tabela Desnormalizada
+SET GLOBAL local_infile = 1;
+
+LOAD DATA LOCAL INFILE 'E:\listings (1).csv' 
+INTO TABLE airbnb_desnormalizado 
+FIELDS TERMINATED BY ',' 
+OPTIONALLY ENCLOSED BY '"' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS;
+
+select license 
+from airbnb_desnormalizado;
 
 create table airbnb_desnormalizado (
 	id varchar(255) primary key,
