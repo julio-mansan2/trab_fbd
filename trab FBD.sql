@@ -3,7 +3,7 @@ create database airbnb_db;
 -- Tabela Desnormalizada
 SET GLOBAL local_infile = 1;
 
-LOAD DATA LOCAL INFILE 'E:\listings (1).csv' 
+LOAD DATA LOCAL INFILE '/home/joaopedro/Downloads/listings (1).csv' 
 INTO TABLE airbnb_desnormalizado 
 FIELDS TERMINATED BY ',' 
 OPTIONALLY ENCLOSED BY '"' 
@@ -14,25 +14,25 @@ select license
 from airbnb_desnormalizado;
 
 create table airbnb_desnormalizado (
-	id varchar(255) primary key,
-	name varchar(255),
-    host_id varchar(255),
-    host_profile_id varchar(255),
+	  id bigint primary key,
+	  name text,
+    host_id bigint,
+    host_profile_id bigint,
     host_name varchar(255),
     neighbourhood_group varchar(255),
     neighbourhood varchar(255),
-    latitude varchar(255),
-    longitude varchar(255),
+    latitude double,
+    longitude double,
     room_type varchar(100),
-    price varchar(255),
-    minimum_nights varchar(255),
-    number_of_reviews varchar(255),
-    last_review varchar(255),
-    reviews_per_month varchar(255),
-    calculated_host_listings_count varchar(255),
-    availability_365 varchar(255),
-    number_of_reviews_ltm varchar(255),
-    license varchar(255)
+    price double,
+    minimum_nights int,
+    number_of_reviews int,
+    last_review date,
+    reviews_per_month int,
+    calculated_host_listings_count int,
+    availability_365 int,
+    number_of_reviews_ltm int,
+    license text
 );
 
 
@@ -47,12 +47,12 @@ CREATE TABLE airbnb_host (
 );
 
 CREATE TABLE neighbourhood_group (
-	neighbourhood_group_id INT PRIMARY KEY,
+	  neighbourhood_group_id INT AUTO_INCREMENT PRIMARY KEY,
     neighbourhood_group_name VARCHAR(255)
 );
 
 CREATE TABLE neighbourhood (
-	neighbourhood_id INT PRIMARY KEY,
+	  neighbourhood_id INT AUTO_INCREMENT PRIMARY KEY,
     neighbourhood_name VARCHAR(255),
     neighbourhood_group_id INT,
 
@@ -61,7 +61,7 @@ CREATE TABLE neighbourhood (
 );
 
 CREATE TABLE room_type (
-	room_type_id INT PRIMARY KEY,
+  	room_type_id INT AUTO_INCREMENT PRIMARY KEY,
     room_type VARCHAR(100)
 );
 
@@ -92,14 +92,14 @@ CREATE TABLE listing (
 );
 
 create table review_summary (
-	listing_id bigint primary key,
+	  listing_id bigint primary key,
     number_of_reviews int,
     last_review date,
     reviews_per_month double,
     number_of_reviews_ltm int,
     
     foreign key(listing_id)
-		references listing(listing_id)
+		    references listing(listing_id)
 );
 
 use airbnb_db
