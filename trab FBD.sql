@@ -3,7 +3,7 @@ create database airbnb_db;
 -- Tabela Desnormalizada
 SET GLOBAL local_infile = 1;
 
-LOAD DATA LOCAL INFILE '/home/joaopedro/Downloads/listings (1).csv' 
+LOAD DATA LOCAL INFILE '/caminho/do/arquivo' -- essa linha varia
 INTO TABLE airbnb_desnormalizado 
 FIELDS TERMINATED BY ',' 
 OPTIONALLY ENCLOSED BY '"' 
