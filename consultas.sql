@@ -24,9 +24,6 @@ WHERE n.neighbourhood_id NOT IN (
 )
 ORDER BY n.neighbourhood_name ASC;
 
-USE airbnb_db;
-
-
 -- Popularidade e engajamento por região - Junção Externa
 SELECT ng.neighbourhood_group_name AS Regiao, COUNT(l.listing_id) AS Total_Imoveis,
 ROUND(AVG(rs.reviews_per_month), 2) AS Media_Reviews_Por_Mes
