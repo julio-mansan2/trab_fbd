@@ -1,45 +1,29 @@
-create database airbnb_db;
+CREATE DATABASE airbnb_db;
 
 -- Tabela Desnormalizada
-SET GLOBAL local_infile = 1;
-
-LOAD DATA LOCAL INFILE '/caminho/do/arquivo' -- essa linha varia
-INTO TABLE airbnb_desnormalizado 
-FIELDS TERMINATED BY ',' 
-OPTIONALLY ENCLOSED BY '"' 
-LINES TERMINATED BY '\n' 
-IGNORE 1 ROWS;
-
-select license 
-from airbnb_desnormalizado;
-
-create table airbnb_desnormalizado (
-	  id bigint primary key,
-	  name text,
-    host_id bigint,
-    host_profile_id bigint,
-    host_name varchar(255),
-    neighbourhood_group varchar(255),
-    neighbourhood varchar(255),
-    latitude double,
-    longitude double,
-    room_type varchar(100),
-    price double,
-    minimum_nights int,
-    number_of_reviews int,
-    last_review date,
-    reviews_per_month int,
-    calculated_host_listings_count int,
-    availability_365 int,
-    number_of_reviews_ltm int,
-    license text
+CREATE TABLE airbnb_desnormalizado (
+	  id BIGINT PRIMARY KEY,
+	  name TEXT,
+    host_id BIGINT,
+    host_profile_id BIGINT,
+    host_name VARCHAR(255),
+    neighbourhood_group VARCHAR(255),
+    neighbourhood VARCHAR(255),
+    latitude DOUBLE,
+    longitude DOUBLE,
+    room_type VARCHAR(100),
+    price DOUBLE,
+    minimum_nights INT,
+    number_of_reviews INT,
+    last_review DATE,
+    reviews_per_month INT,
+    calculated_host_listings_count INT,
+    availability_365 INT,
+    number_of_reviews_ltm INT,
+    license TEXT
 );
 
-
-drop table airbnb_desnormalizado;
-
--- Tabelas Normalizadas (talvez)
-
+-- Tabelas Normalizadas
 CREATE TABLE airbnb_host (
     host_id BIGINT PRIMARY KEY,
     host_profile_id BIGINT,
@@ -91,15 +75,13 @@ CREATE TABLE listing (
         REFERENCES airbnb_host(host_id)
 );
 
-create table review_summary (
-	  listing_id bigint primary key,
-    number_of_reviews int,
-    last_review date,
-    reviews_per_month double,
-    number_of_reviews_ltm int,
+CREATE TABLE review_summary (
+	  listing_id BIGINT PRIMARY KEY,
+    number_of_reviews INT,
+    last_review DATE,
+    reviews_per_month DOUBLE,
+    number_of_reviews_ltm INT,
     
-    foreign key(listing_id)
-		    references listing(listing_id)
+    FOREIGN KEY(listing_id)
+		    REFERENCES listing(listing_id)
 );
-
-use airbnb_db

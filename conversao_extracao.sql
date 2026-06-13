@@ -1,3 +1,15 @@
+-- Extração de dados
+--Observação: se necessário, iniciar o mysql com: mysql --local-infile=1 -u user -p
+SET GLOBAL local_infile = 1;
+
+LOAD DATA LOCAL INFILE '/home/joaopedro/Downloads/listings (1).csv' -- essa linha varia
+INTO TABLE airbnb_desnormalizado 
+FIELDS TERMINATED BY ',' 
+OPTIONALLY ENCLOSED BY '"' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS;
+
+-- Conversão para tabelas normalizadas
 -- airbnb_host
 INSERT INTO airbnb_host (
     host_id,
